@@ -31,6 +31,12 @@
             margin-bottom: 2rem;
         }
 
+        .logo img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
         h1 {
             color: #fff;
             font-size: 3.5rem;
@@ -49,22 +55,26 @@
 
         .button-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 1.5rem;
             align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .btn {
-            width: 100%;
-            max-width: 350px;
             padding: 1.5rem 2rem;
             font-size: 1.3rem;
             font-weight: bold;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: 'Arial', sans-serif;
+            white-space: nowrap;
         }
 
         .btn-volunteer {
@@ -107,13 +117,21 @@
                 font-size: 1.1rem;
                 padding: 1.2rem 1.5rem;
             }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            .logo img {
+                width: 150px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <img src="porchpantrylogo.png"></img>
+            <img src="porchpantrylogo.png" alt="The Porch Pantry Logo">
         </div>
         
         <p class="tagline">A community-led, one-day-at-a-time approach to fighting hunger in Columbus, Ohio & surrounding areas.</p>
@@ -126,7 +144,7 @@
             
             <button class="btn btn-food" onclick="window.location.href='https://docs.google.com/forms/d/1eMrUQkvfYz65DY-yE0CivuTK0FIUJOwyhAD_kZVt2ns/viewform'">
                 <span class="icon">🧺</span>
-                Request Support
+                GRequest Support
             </button>
         </div>
     </div>
