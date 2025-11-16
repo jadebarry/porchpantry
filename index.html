@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Porch Pantry</title>
     <link rel="icon" type="image/x-icon" href="/favicon32.png">
+    <link rel="stylesheet" href="https://use.typekit.net/xna6kos.css">
     <style>
         * {
             margin: 0;
@@ -13,19 +14,47 @@
         }
 
         body {
-            font-family: 'Georgia', serif;
+            font-family: "roca", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            line-height: 1.2;
             background-color: #333652;
             min-height: 100vh;
+            width: 100vw;
+            padding: 10px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            position: relative;
+            background-image: url('porchpantry-64.jpg');
+            max-height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(51, 54, 82, 0.8);
+            z-index: 1;
         }
 
         .container {
             text-align: center;
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         .logo {
@@ -49,10 +78,11 @@
 
         .tagline {
             color: #f4c5a3;
-            font-size: 1.2rem;
-            line-height: 1.1;
+            font-size: 2rem;
+            line-height: 1.5;
             margin-bottom: 3rem;
             font-style: italic;
+            font-weight: 100;
         }
 
         .button-container {
@@ -62,14 +92,15 @@
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 2rem;
         }
 
         .btn {
-            padding: 1rem 1.5rem;
-            font-family: 'Arial', sans-serif;
+            padding: 1rem 1.5rem 0.8rem;
+            font-family: "roca", sans-serif;
             font-size: 1rem;
             border: none;
-            border-radius: 15px;
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -98,9 +129,194 @@
             box-shadow: 0 6px 20px rgba(129, 178, 154, 0.4);
         }
 
+        .btn-donate {
+            background: #f4a261;
+            color: #fff;
+        }
+
+        .btn-donate:hover {
+            background: #e89350;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.4);
+        }
+
         .icon {
             margin-right: 0.5rem;
             font-size: 1.5rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: #f4c5a3;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #333652;
+        }
+
+        .modal-header {
+            color: #333652;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+            text-align: center;
+            clear: both;
+        }
+
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .qr-item {
+            text-align: center;
+        }
+
+        .qr-item h3 {
+            color: #333652;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.9rem;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .qr-item p {
+            margin-top: 0.5rem;
+            color: #333652;
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background-color: #333652;
+            padding: 4rem 20px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-family: "roca", sans-serif;
+            color: #f4c5a3;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .faq-item {
+            background: #f4c5a3;
+            margin-bottom: 1.5rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            background: #f4c5a3; 
+            font-family: "roca", sans-serif;
+            color: #333652;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+            font-size: 1.3rem;
+        }
+
+        .faq-question:hover {
+            background: #d8b091;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 2rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 1.5rem;
+            background: #f4c5a3;
+            color: #333652;
+            font-size: 1.2rem;
+            font-weight: 100;
+            line-height: 1.6;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 1.5rem;
         }
 
         .social-footer {
@@ -133,13 +349,55 @@
             fill: #fff;
         }
 
+        /* Footer */
+        footer {
+            /*background-color: rgba(0, 0, 0, 0.3);*/
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
         @media (max-width: 600px) {
+            .hero-section {
+                min-height: 95vh;
+                background-image: url('porchpantry-64m.jpg');
+                background-position: top;
+            }
+
             h1 {
                 font-size: 2.5rem;
             }
             
             .tagline {
-                font-size: 1rem;
+                font-size: 1.4rem;
             }
 
             .btn {
@@ -154,40 +412,230 @@
             .logo img {
                 width: 150px;
             }
+
+            .faq-title {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                padding: 1.5rem;
+            }
+
+            .modal-header {
+                font-size: 1.5rem;
+            }
+
+            .qr-placeholder {
+                width: 150px;
+                height: 150px;
+            }
+            .social-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <img src="porchpantrylogo.png" alt="The Porch Pantry Logo">
-        </div>
-        
-        <p class="tagline">A community-led, one-day-at-a-time approach to fighting hunger in Columbus, Ohio & surrounding areas.</p>
-        
-        <div class="button-container">
-            <button class="btn btn-volunteer" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSd_LcaZZAT-E0X-hrg7uzthXbtxICzolGeTAvERpBLqg_CRew/viewform'">
-                <span class="icon">🤝</span>
-                Sign Up to Deliver Food
-            </button>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="logo">
+                <img src="porchpantrylogo.png" alt="The Porch Pantry Logo">
+            </div>
             
-            <button class="btn btn-food" onclick="window.location.href='https://docs.google.com/forms/d/1eMrUQkvfYz65DY-yE0CivuTK0FIUJOwyhAD_kZVt2ns/viewform'">
-                <span class="icon">🧺</span>
-                Request Support
-            </button>
-        </div>
-        <div class="social-footer">
-            <a href="https://www.instagram.com/theporchpantry_columbus/" class="social-link" aria-label="Instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-            </a>
-            <a href="https://www.facebook.com/porchpantrycolumbus" class="social-link" aria-label="Facebook">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-            </a>
+            <p class="tagline">A neighbor-to-neighbor, mutual aid approach to fighting hunger in Columbus, Ohio.</p>
+            
+            <div class="button-container">
+                <button class="btn btn-volunteer" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSd_LcaZZAT-E0X-hrg7uzthXbtxICzolGeTAvERpBLqg_CRew/viewform'">
+                    Sign Up to Deliver Food
+                </button>
+                
+                <button class="btn btn-food" onclick="window.location.href='https://docs.google.com/forms/d/1eMrUQkvfYz65DY-yE0CivuTK0FIUJOwyhAD_kZVt2ns/viewform'">
+                    Request Support
+                </button>
+
+                <button class="btn btn-donate" id="donateBtn">
+                    Donate
+                </button>
+            </div>
+
+            <div class="social-footer">
+                <a href="https://www.instagram.com/theporchpantry_columbus/" class="social-link" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/porchpantrycolumbus" class="social-link" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+            </div>
         </div>
     </div>
+
+    <!-- Donate Modal -->
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="modal-header">Support The Porch Pantry</h2>
+            <p style="text-align: center; color: #333652; margin-bottom: 1rem;">Your donation helps us deliver emergency food relief to families in need.</p>
+            <div class="qr-container">
+                <div class="qr-item">
+                    <h3>Venmo</h3>
+                    <!--<div class="qr-placeholder">
+                        QR Code Here<br>
+                        <small>(Replace with actual Venmo QR)</small>
+                    </div>-->
+                    <p><a href="https://venmo.com/u/theporchpantrycolumbus">@theporchpantrycolumbus</a></p>
+                </div>
+                <div class="qr-item">
+                    <h3>CashApp</h3>
+                    <!--<div class="qr-placeholder">
+                        QR Code Here<br>
+                        <small>(Replace with actual PayPal QR)</small>
+                    </div>-->
+                    <p><a href="https://cash.app/$porchpantrycolumbus">$porchpantrycolumbus</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="faq-container">
+            <h2 class="faq-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is The Porch Pantry?
+                </div>
+                <div class="faq-answer">
+                    The Porch Pantry is a community-led emergency food relief initiative serving Columbus, Ohio and surrounding areas. We connect volunteers who can deliver food with families in need, operating on a one-day-at-a-time basis to provide immediate assistance.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    How does the food delivery process work?
+                </div>
+                <div class="faq-answer">
+                    Families in need submit a request through our form. Volunteers sign up to shop and deliver food on specific days. We match volunteers with families based on location and availability.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Who can request food assistance?
+                </div>
+                <div class="faq-answer">
+                    Anyone in Columbus, Ohio or surrounding areas experiencing food insecurity can request assistance. There are no income requirements or qualifications needed. We believe everyone deserves access to food.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    How can I volunteer to shop and deliver groceries?
+                </div>
+                <div class="faq-answer">
+                    Click the "Sign Up to Deliver Food" button and fill out the form. You can choose which days work for your schedule. We'll send you details about the delivery, including the family's address, size, and any dietary needs or special requests.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    It's not in my budget to shop for groceries for a family at this time. Can I get involved in other ways?
+                </div>
+                <div class="faq-answer">
+                    Absolutely! Go to our <a href="">Volunteer form</a> and indicate how you would like to help.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I drop off items with you to be added to bags for families?
+                </div>
+                <div class="faq-answer">
+                    Yes &mdash; we appreciate you! Head over to our <a href="">Volunteer form</a> to get started.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    How is my privacy protected if I request food?
+                </div>
+                <div class="faq-answer">
+                    We take privacy seriously. Your information is only shared with the volunteer making your delivery. Deliveries can be completely contactless and left on your porch. Volunteers are committed to treating all recipients with dignity and respect.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I request food assistance more than once?
+                </div>
+                <div class="faq-answer">
+                    We are an emergency pantry meant to be a gap to more sustainable resources, and at any given time we have hundreds of families in the queue waiting for groceries. We are a small team of two coordinating other neighbors volunteering to help.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <!-- <div class="social-links">
+            <a href="https://www.instagram.com/theporchpantry_columbus" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/porchpantrycolumbus" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-square-facebook"></i></a>
+            <a href="https://venmo.com/u/theporchpantrycolumbus" target="_blank" rel="noopener noreferrer">Venmo</a>
+            <a href="https://cash.app/$porchpantrycolumbus" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-cash-app"></i></a>
+        </div>
+    -->
+        <div class="copyright">
+            <p>&copy; 2025 Porch Pantry Columbus. Fighting hunger together, one day at a time.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Modal functionality
+        var modal = document.getElementById("donateModal");
+        var btn = document.getElementById("donateBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // FAQ accordion functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+                
+                // Close all other FAQs
+                faqQuestions.forEach(q => {
+                    q.classList.remove('active');
+                    q.nextElementSibling.classList.remove('active');
+                });
+                
+                // Toggle current FAQ
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
